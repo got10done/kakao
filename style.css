@@ -1,0 +1,53 @@
+body{margin:0px; padding:0px; background-color:cornsilk;}
+#page{width:960px;height:1200px; 
+    background-color:aquamarine; 
+    box-shadow: 20px 20px 30px grey;
+    margin:0px auto; margin-top:50px;margin-bottom:50px;
+    padding:20px;}
+#content{height:900px;}
+#top{padding:20px;background:darkorange;}
+aa{padding:10px; box-sizing:border-box;font-size:25px; font-family:'함초롬바탕 확장';
+    background-color:darksalmon;
+    text-decoration:none;
+    color:black;}
+aa:hover{color:brown;
+        box-shadow:0px 0px 20px lightgrey;
+        }
+a{text-decoration:none;
+    color:black;
+    font-size:20px;
+}
+#divSearch{width:750px;border:5px dotted orange;padding:5px;margin:0px auto;}
+#txtQuery{margin-left:100px;width:400px;font-size:15px;}
+#selSize{font-size:15px;}
+table{width:915px;border-collapse:collapse;margin:20px auto;text-align:center;}
+td{border:1px solid gray;padding:10px;font-weight:500;}
+.title{text-align:center;background-color:lightsalmon;font-size:20px;}
+.row{background:white;}
+.row:hover{background:lightskyblue;}
+#subject{text-align:center;}
+#divPage{text-align:center;}
+h1{text-align:center;}
+
+#darken-background {
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    height:100%;
+    display:none;
+    background:rgba(0, 0, 0, 0.5);
+    z-index:10000;
+    overflow-y:scroll;
+}
+#lightbox {
+    width:700px;
+    margin:20px auto;
+    
+    padding:15px;
+    border: 1px solid #333333;
+    border-radius:5px;
+    background:white;
+    box-shadow:0px 5px 5px rgba(34, 25, 25, 0.4);
+    text-align:center;
+}

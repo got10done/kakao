@@ -1,0 +1,133 @@
+<html>
+ 	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=87b6d3ba1453e7fad641622a3362f4c3"></script>
+	<head>
+		<title>카카오 API</title>
+		<link rel="stylesheet" href="style.css"/>
+        <style>
+            .title td{text-align:center;}
+		</style>
+
+	</head>
+	<body>
+		<div id="page">
+            <div id="top">
+                <a href="blog.html" class="aa">블로그검색</a>&nbsp;&nbsp;&nbsp;
+                <a href="book.html" class="aa">도서검색</a>&nbsp;&nbsp;&nbsp;
+                <a href="local.html" class="aa">지역검색</a>&nbsp;&nbsp;&nbsp;
+            </div>
+            <div id="content">
+                <div class="subject"><h1> 로컬 검색 </h1></div>
+                <div id="divSearch">
+                    <input type="text" id="txtQuery" value="자바">
+                    <input type="button" id="btnSearch" value=" 🔍 "/>
+                    <select id="selSize">
+                        <option value="5">5행씩 출력</option>
+                        <option value="10">10행씩 출력</option>
+                        <option value="15">15행씩 출력</option>
+                        <option value="20">20행씩 출력</option>
+                        
+                    </select>
+                </div>
+                <table id="tbl"></table>
+                <script id="temp" type="text/x-handlebars-template">
+                    <tr class="title">
+                        <td width=300>이름</td>
+                        <td width=500>주소</td>
+                        <td width=150>연락처</td>
+                        <td width=50>지도</td>
+                    </tr>
+                    {{#each documents}}
+                    <tr class="row">
+                        <td><a href="{{place_url}}">{{{place_name}}}</a></td>
+                        <td class="names">{{{address_name}}}</td>
+                        <td>{{{phone}}}</td>
+                        <td><button x="{{x}}" y="{{y}}" phone="{{phone}}" place="{{place_name}}" url="{{place_url}}"> 🗺 </button></td>
+                    </tr>
+                    {{/each}}
+                </script>
+                <div id="divPage">
+                    <button id="first">맨 처음</button>
+                    <button id="btnPre"> 👈 </button>
+                    <span id="page2"></span>
+                    <button id="btnNext"> 👉 </button>
+                </div>
+                
+            </div>
+        </div>
+        <div id="bottom"></div>
+                <h3>작성자:인천일보아카데미 탠</h3>
+        <div id="darken-background">
+            <div id="lightbox" style="margin-top:550px;">
+                <div id="map" style="margin: 20px 0px 0px 20px; width:650px; height:300px; border: 1px solid black; border-radius: 5px;"></div>
+                <br>
+                <button id="btnClose"> 닫 기 </button>
+            </div>
+        </div>
+	</body>
+        <script>
+            var url="https://dapi.kakao.com/v2/local/search/keyword.json";
+
+            $("#btnClose").on("click",function(){
+                $("#darken-background").hide();
+            });
+            //발췌한 부분 - 지도 web api
+             $("#tbl").on("click",".row button",function(){
+                var x=$(this).attr("x");
+                var y=$(this).attr("y");
+                var names=$(this).attr("place");
+                var phones=$(this).attr("phone");
+                var urls=$(this).attr("url");
+                $("#darken-background").show();
+                
+                var container = document.getElementById('map');
+		        var options = {
+			        center: new kakao.maps.LatLng(y, x),
+			        level: 3
+		        };
+                var map = new kakao.maps.Map(container, options);
+               
+                // ****************** 지도에 중심 마커 설정 코드 (센터에 복붙)
+                var mapContainer = document.getElementById('map'), 
+                mapOption = { 
+                center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+                 level: 3 // 지도의 확대 레벨
+                 };
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+                // 마커가 표시될 위치입니다 
+                var markerPosition  = new kakao.maps.LatLng(y, x); 
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+
+                //********************** 생성된 마커에 정보 표기(복붙)
+               
+                var iwContent = '<div style="margin-left:15px;padding:5px;text-align:center;">';
+                    iwContent += '<b>'+names+'</b><br>'+phones+'</div>', 
+                         // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwPosition = new kakao.maps.LatLng(y, x); //인포윈도우 표시 위치입니다
+
+                // 인포윈도우를 생성합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    position : iwPosition, 
+                    content : iwContent 
+                });
+                
+                // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+                infowindow.open(map, marker); 
+                
+
+
+
+            });
+            
+		</script>
+        <script src="script.js"></script>
+</html>

@@ -1,0 +1,58 @@
+<html>
+ 	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+	<head>
+		<title>카카오 API</title>
+		<link rel="stylesheet" href="style.css"/>
+        <style>
+		</style>
+
+	</head>
+	<body>
+		<div id="page">
+            <div id="top">
+                <a href="blog.html" class="aa">블로그검색</a>&nbsp;&nbsp;&nbsp;
+                <a href="book.html" class="aa">도서검색</a>&nbsp;&nbsp;&nbsp;
+                <a href="local.html" class="aa">지역검색</a>&nbsp;&nbsp;&nbsp;
+            </div>
+            <div id="content">
+                <div class="subject"><h1> 블로그 검색 </h1></div>
+                <div id="divSearch">
+                    <input type="text" id="txtQuery" value="자바">
+                    <input type="button" id="btnSearch" value=" 🔍 "/>
+                    <select id="selSize">
+                        <option value="5">5행씩 출력</option>
+                        <option value="10">10행씩 출력</option>
+                        <option value="15">15행씩 출력</option>
+                        <option value="20">20행씩 출력</option><!---->
+                        
+                    </select>
+                </div>
+                <table id="tbl"></table>
+                <script id="temp" type="text/x-handlebars-template">
+                    <tr class="title">
+                        <td>제목</td>
+                    </tr>
+                    {{#each documents}}
+                    <tr class="row">
+                        <td><a href="{{url}}">{{{title}}}</a></td>
+                    </tr>
+                    {{/each}}
+                </script>
+                <div id="divPage">
+                    <button id="first">맨 처음</button>
+                    <button id="btnPre"> 👈 </button>
+                    <span id="page2"></span>
+                    <button id="btnNext"> 👉 </button>
+                </div>
+            </div>
+            <div id="bottom"></div>
+                <h3>작성자:인천일보아카데미 홍길동</h3>
+        </div>
+	</body>
+    
+		<script>
+            var url="https://dapi.kakao.com/v2/search/blog";
+		</script>
+        <script src="script.js"></script>
+</html>
